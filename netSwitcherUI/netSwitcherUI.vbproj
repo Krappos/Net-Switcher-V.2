@@ -19,4 +19,8 @@
     <Import Include="System.Windows.Shapes" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="WPF-UI" Version="4.1.0" />
+  </ItemGroup>
+
 </Project>
