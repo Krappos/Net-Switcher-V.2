@@ -4,6 +4,7 @@
 *.user
 *.userosscache
 *.sln.docstates
+*.sln
 
 # Skompilované binárky (tiež nepatria na GitHub)
 [Bb]in/
