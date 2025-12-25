@@ -16,7 +16,7 @@
                 <ColumnDefinition Width="20*"/>
             </Grid.ColumnDefinitions>
 
-            
+
 
             <Grid Grid.Column="1">
                 <Grid.RowDefinitions>
@@ -38,7 +38,7 @@
                               Grid.Row="1" 
                               Foreground="Gray"
                               TextWrapping="Wrap" 
-                              Text="Pripojené" 
+                              Text="{Binding speed}" 
                               VerticalAlignment="Top"/>
             </Grid>
 
@@ -48,6 +48,10 @@
                        Margin="10" 
                        HorizontalAlignment="Stretch" 
                        VerticalAlignment="Center" Background="#FF2369B6"/>
+            <ui:Image HorizontalContentAlignment="Center" Source="{Binding iconPath}" Height="50" Width="50" Margin="3,-2,7,-2">
+            
+            </ui:Image>
+
         </Grid>
     </ui:Card>
 </UserControl>

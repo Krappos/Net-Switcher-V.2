@@ -7,16 +7,13 @@ Class MainWindow
     Public Sub New()
         InitializeComponent()
 
-        Items.Add(New Filler With {.Name = " Eth"})
-        Items.Add(New Filler With {.Name = " BBc"})
-        Items.Add(New Filler With {.Name = " Eth"})
-        Items.Add(New Filler With {.Name = " Eth"})
-        Items.Add(New Filler With {.Name = " Eth"})
+        Items.Add(New Filler With {.Name = " Eth", .iconPath = "/WIFI.png"})
+        Items.Add(New Filler With {.Name = " Eth", .iconPath = "/ETH.png"})
+
         Items.Add(New Filler With {.Name = " Eth"})
         Items.Add(New Filler With {.Name = " Eth"})
         Items.Add(New Filler With {.Name = " Eth"})
-        Items.Add(New Filler With {.Name = " Eth"})
-        Items.Add(New Filler With {.Name = " Eth"})
+
 
         Me.DataContext = Me
     End Sub

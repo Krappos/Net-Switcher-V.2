@@ -8,6 +8,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="ETH.png" />
+    <None Remove="WiFi icon.jpg" />
+    <None Remove="WIFI.png" />
+    <None Remove="WifiIcon.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Import Include="System.Windows" />
     <Import Include="System.Windows.Controls" />
     <Import Include="System.Windows.Data" />
@@ -21,6 +28,13 @@
 
   <ItemGroup>
     <PackageReference Include="WPF-UI" Version="4.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="ETH.png" />
+    <Resource Include="WiFi icon.jpg" />
+    <Resource Include="WIFI.png" />
+    <Resource Include="WifiIcon.png" />
   </ItemGroup>
 
 </Project>
