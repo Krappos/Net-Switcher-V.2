@@ -15,11 +15,8 @@ Class MainWindow
     Public Sub New()
         InitializeComponent()
 
+        loadNetworkInfo()
 
-        'nacitanie dostupnych sieti do userControlera
-        For Each sset In loader.getAvaliableNets()
-            Items.Add(sset)
-        Next
 
         Me.DataContext = Me
     End Sub
@@ -37,4 +34,24 @@ Class MainWindow
     End Sub
 
 
+#Region "private methods"
+
+    Private Sub loadNetworkInfo()
+
+        'nacitanie dostupnych sieti do userControlera
+        For Each sset In loader.getAvaliableNets()
+            Items.Add(sset)
+        Next
+
+    End Sub
+
+#End Region
+
+
 End Class
+
+'nacitavanie sieti do zoznamu funguje
+'pridat bluetooth  icon 
+'upravit proxy font a textbox 
+'pridat logiku checkboxu a textboxu na script
+'pridanie kniznice na zapis scriptu do systemu
