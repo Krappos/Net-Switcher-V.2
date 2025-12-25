@@ -4,6 +4,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+                 xmlns:local="clr-namespace:netSwitcherUI"
     mc:Ignorable="d"
     
     Title="Net Switcher" 
@@ -27,19 +28,47 @@
         Icon="C:\Programovanie\Net switcher 2\Images\Apka.ico"
             />
         <Grid Grid.Row="1">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="9*"/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
+
+
             <Grid.RowDefinitions>
                 <RowDefinition Height="28*"/>
                 <RowDefinition Height="285*"/>
             </Grid.RowDefinitions>
-            <CheckBox Grid.Column="1" Content="" HorizontalContentAlignment="Center" Padding="0,0,0,0" ScrollViewer.CanContentScroll="True" Height="32" Width="30" Margin="6,0,0,0"/>
-            <ui:TextBox TextWrapping="Wrap" Text="proxy" Margin="10,4,10,3"/>
-        </Grid>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="9*"/>
+                    <ColumnDefinition/>
 
+                </Grid.ColumnDefinitions>
+                <ui:TextBox TextWrapping="Wrap" Text="proxy" Margin="10,4,10,3"/>
+                <CheckBox Grid.Column="1" Content="" HorizontalContentAlignment="Center" Padding="0,0,0,0" ScrollViewer.CanContentScroll="True" Height="32" Width="30" Grid.ColumnSpan="2" Margin="7,0,0,0"/>
+            </Grid>
+            <Grid Grid.Row="1" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="3*"/> 
+                    <ColumnDefinition Width="85*"/>
+                    <ColumnDefinition Width="3*"/>
+                </Grid.ColumnDefinitions>
+                <ScrollViewer Grid.Row="1" Grid.Column="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+                    <ItemsControl Grid.Row="1" Grid.Column="1"  ItemsSource="{Binding Items}" HorizontalContentAlignment="Center" ScrollViewer.VerticalScrollBarVisibility="Disabled" Margin="0,15,0,0" >
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <local:netCard Margin="5,5,5,5"/>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
+
+
+
+
+            </Grid>
+
+
+        </Grid>
+        
 
     </Grid>
 
 </ui:FluentWindow>
+
