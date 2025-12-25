@@ -35,8 +35,8 @@
                     <ColumnDefinition/>
 
                 </Grid.ColumnDefinitions>
-                <ui:TextBox TextWrapping="Wrap" Text="proxy" Margin="10,7,10,7" FontSize="10"/>
-                <CheckBox Grid.Column="1" Content="" HorizontalContentAlignment="Center" Padding="0,0,0,0" ScrollViewer.CanContentScroll="True" Height="32" Width="30" Grid.ColumnSpan="2" Margin="7,0,0,0"/>
+                <ui:TextBox x:Name="Tb_script" TextWrapping="Wrap" Text="proxy" Margin="10,7,10,7" FontSize="10"/>
+                <CheckBox x:Name="CheckBox1" Grid.Column="1" Content="" HorizontalContentAlignment="Center" Padding="0,0,0,0" ScrollViewer.CanContentScroll="True" Height="32" Width="30" Grid.ColumnSpan="2" Margin="7,0,0,0"/>
             </Grid>
             <Grid Grid.Row="1" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto">
                 <Grid.ColumnDefinitions>

@@ -9,9 +9,7 @@
 
   <ItemGroup>
     <None Remove="ETH.png" />
-    <None Remove="WiFi icon.jpg" />
     <None Remove="WIFI.png" />
-    <None Remove="WifiIcon.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -31,10 +29,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\netSwitcherBackend\netSwitcherBackend.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Resource Include="ETH.png" />
-    <Resource Include="WiFi icon.jpg" />
     <Resource Include="WIFI.png" />
-    <Resource Include="WifiIcon.png" />
   </ItemGroup>
 
 </Project>
