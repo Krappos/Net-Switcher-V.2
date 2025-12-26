@@ -4,6 +4,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+    xmlns:tray="http://schemas.lepo.co/wpfui/2022/xaml/tray"
     xmlns:local="clr-namespace:netSwitcherUI"
     mc:Ignorable="d"
     
@@ -14,12 +15,15 @@
     WindowStartupLocation="CenterScreen"
     WindowBackdropType="Mica"
     ExtendsContentIntoTitleBar="True" Background="#FF1C1C1C" MinHeight="505">
+
+   
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-
+      
         <ui:TitleBar 
         Grid.Row="0" 
         Title="Net Switcher" 
@@ -55,6 +59,7 @@
                 </ScrollViewer>
             </Grid>
         </Grid>
+        
     </Grid>
 </ui:FluentWindow>
 
