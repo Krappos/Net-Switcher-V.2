@@ -9,6 +9,12 @@ namespace netSwitcherBackend;
     public bool isActive { get; set; }
     public bool isEthernet { get; set; }
 
+    public String? btnWriter { get; set; }
+    public int speed { get; set; } = 150;
+
+    public String btnColor { get; set; } = "#FF2369B6";
+
+    public String? message { get; set; }
     public String iconKey => isEthernet ?  "/ETH.png" : "/WIFI.png" ;
 
 

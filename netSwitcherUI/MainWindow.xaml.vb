@@ -1,4 +1,5 @@
 ﻿Imports System.Collections.ObjectModel
+Imports System.ComponentModel
 Imports System.IO
 Imports System.Net.Mime.MediaTypeNames
 Imports netSwitcherBackend
@@ -11,10 +12,10 @@ Class MainWindow
     Public Property Items As New ObservableCollection(Of NetworkInfo)()
 
     Dim loader As New NewtorkLoader()
-    Dim informacia As New NetworkInfo()
+    Dim inform As New NetworkInfo()
     Dim file As New ProxyWorker()
     Dim activeState As Boolean
-    Dim proxy As New ProxyController()
+    Dim proxy As New proxyController()
 
     Public Sub New()
         InitializeComponent()
@@ -22,6 +23,12 @@ Class MainWindow
 
         Me.DataContext = Me
     End Sub
+    Public Sub refresh()
+        Items.Clear()
+        loadNetworkInfo()
+    End Sub
+
+
 
     Private Sub CheckBoxController(sender As Object, e As RoutedEventArgs) Handles CheckBox1.Unchecked, CheckBox1.Checked
 
@@ -37,6 +44,7 @@ Class MainWindow
 
     End Sub
 
+
     Private Sub Tb_script_KeyDown(sender As Object, e As KeyEventArgs) Handles Tb_script.KeyDown
         If e.Key = Key.Enter Then
             Tb_scriptController()
@@ -48,32 +56,45 @@ Class MainWindow
 
     Private Sub firstBoot()
         file.CreateFiles()
-        ProxyStatus()
+        StartupInit()
         loadNetworkInfo()
-        CheckBox1.IsChecked = True
+        Tb_script.Text = file.ReadScript()
 
     End Sub
-    Private Sub ProxyStatus()
-        If CheckBox1.IsChecked Then
-            proxy.EnableProxyScript()
 
-        Else
-
-            proxy.DisableProxyScript()
-        End If
-    End Sub
     Private Sub loadNetworkInfo()
 
         'nacitanie dostupnych sieti do userControlera
-        For Each sset In loader.getAvaliableNets()
+        For Each sset In loader.GetNetWorkCards()
             Items.Add(sset)
         Next
 
     End Sub
 
     Private Sub Tb_scriptController()
-        file.WriteScript(Tb_script.Text)
-        MsgBox("vasa proxy je uspesne zmenená")
+        If String.IsNullOrWhiteSpace(Tb_script.Text) Then
+            MsgBox("prosím zapíšte svoju adresu")
+        Else
+            file.WriteScript(Tb_script.Text)
+            MsgBox("vasa proxy je uspesne zmenená")
+        End If
+    End Sub
+
+    Private Sub StartupInit()
+        If loader.IsScriptAllowed Then
+
+            CheckBox1.IsChecked = True
+            Tb_script.IsEnabled = True
+            Tb_script.TextDecorations = Nothing
+
+        Else
+            CheckBox1.IsChecked = False
+            Tb_script.IsEnabled = False
+            Tb_script.TextDecorations = TextDecorations.Strikethrough
+
+        End If
+
+
     End Sub
 
 #End Region
@@ -86,7 +107,9 @@ End Class
 'pridanie kniznice na zapis scriptu do systemu<3
 'pridat logiku checkboxu a textboxu na script <
 
+'ak je tb_script text rovnaky ako file.readscript vypíše sa že nič sa nezmenilo 
 
 'pridat bluetooth  icon 
 
+'nejaky proces zadržuje vypnutie aplikácie
 'pridanie logiky na aktivnu siet
