@@ -75,8 +75,10 @@ Class MainWindow
         If String.IsNullOrWhiteSpace(Tb_script.Text) Then
             MsgBox("prosím zapíšte svoju adresu")
         Else
-            file.WriteScript(Tb_script.Text)
+
             MsgBox("vasa proxy je uspesne zmenená")
+            file.WriteScript(Tb_script.Text)
+
         End If
     End Sub
 
@@ -104,12 +106,12 @@ End Class
 
 'nacitavanie sieti do zoznamu funguje <3
 'upravit proxy font a textbox <3
-'pridanie kniznice na zapis scriptu do systemu<3
+'pridanie kniznice na zapis scriptu do systemu <3
+'nejaky proces zadržuje vypnutie aplikácie  <3
+'pridanie logiky na aktivnu siet <3
 'pridat logiku checkboxu a textboxu na script <
-
-'ak je tb_script text rovnaky ako file.readscript vypíše sa že nič sa nezmenilo 
+'ak je tb_script text rovnaky ako file.readscript vypíše sa že nič sa nezmenilo <3
 
 'pridat bluetooth  icon 
 
-'nejaky proces zadržuje vypnutie aplikácie
-'pridanie logiky na aktivnu siet
+

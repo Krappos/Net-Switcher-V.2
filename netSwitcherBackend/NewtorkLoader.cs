@@ -23,7 +23,7 @@ public class NewtorkLoader
                    );
 
       
-
+        
         foreach (ManagementObject obj in searcher.Get())
         {
             string name = obj["NetConnectionID"]?.ToString() ?? "unknown";
