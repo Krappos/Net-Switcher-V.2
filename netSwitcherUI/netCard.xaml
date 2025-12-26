@@ -48,7 +48,7 @@
                        Margin="10" 
                        HorizontalAlignment="Stretch" 
                        VerticalAlignment="Center" Background="#FF2369B6"/>
-            <ui:Image HorizontalContentAlignment="Center" Source="{Binding iconKey}" Height="50" Width="50" Margin="3,-2,7,-2">
+            <ui:Image HorizontalContentAlignment="Center" Source="{Binding iconKey}" Height="35" Width="35" Margin="3,-2,7,-2">
           
 
             </ui:Image>
