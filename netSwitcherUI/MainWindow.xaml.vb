@@ -1,36 +1,37 @@
 ﻿Imports System.Collections.ObjectModel
 Imports System.ComponentModel
-Imports System.IO
-Imports System.Net.Mime.MediaTypeNames
+Imports System.Windows.Interop
 Imports netSwitcherBackend
-Imports Wpf.Ui.Controls
-
 
 Class MainWindow
     Inherits FluentWindow
 
 
     Public Property Items As New ObservableCollection(Of NetworkInfo)()
+#Region "Instances & variables "
 
-    Private trayIcon As Wpf.Ui.Tray.Controls.NotifyIcon
-
+    Dim trayIcon As Wpf.Ui.Tray.Controls.NotifyIcon
     Dim loader As New NewtorkLoader()
     Dim inform As New NetworkInfo()
-    Dim file As New ProxyWorker()
+    Dim file As New FileWorker()
     Dim activeState As Boolean
     Dim proxy As New proxyController()
 
+#End Region
+
+    'constructor
     Public Sub New()
+
         InitializeComponent()
+
         firstBoot()
 
         Me.DataContext = Me
-    End Sub
-    Public Sub refresh()
-        Items.Clear()
-        loadNetworkInfo()
+
+
     End Sub
 
+#Region "View methods"
     Private Sub MainWindow_Loaded(sender As Object, e As RoutedEventArgs) Handles Me.Loaded
 
         trayIcon = TryCast(Me.Resources("MyTrayIcon"), Wpf.Ui.Tray.Controls.NotifyIcon)
@@ -38,13 +39,6 @@ Class MainWindow
 
     End Sub
 
-    Private Sub appClose(sender As Object, e As RoutedEventArgs)
-        If trayIcon IsNot Nothing Then
-            trayIcon.Unregister()
-        End If
-        'Application.Current.Shutdown()
-        ' Me.Close()
-    End Sub
     Protected Overrides Sub OnClosing(e As CancelEventArgs)
         e.Cancel = True
 
@@ -53,7 +47,13 @@ Class MainWindow
         Me.ShowInTaskbar = False
 
         MyBase.OnClosing(e)
+
+        'zapisanie pozície okna 
+        'zapisanie pozicie okna
+
+
     End Sub
+
     Private Sub CheckBoxController(sender As Object, e As RoutedEventArgs) Handles CheckBox1.Unchecked, CheckBox1.Checked
 
         If CheckBox1.IsChecked = True Then
@@ -74,39 +74,56 @@ Class MainWindow
         End If
     End Sub
 
+#End Region
+
+
+    Private Sub refresh()
+        Items.Clear()
+        loadNetworkInfo()
+    End Sub
+
+    Private Sub appClose(sender As Object, e As RoutedEventArgs)
+        If trayIcon IsNot Nothing Then
+            trayIcon.Unregister()
+        End If
+        Application.Current.Shutdown()
+    End Sub
+
+
+
 
 #Region "private methods"
 
+
+
     Private Sub firstBoot()
+
+        'vytvorenie súboru pre proxy Script
         file.CreateFiles()
-        StartupInit()
-        loadNetworkInfo()
-        Tb_script.Text = file.ReadScript()
 
-    End Sub
+        If String.IsNullOrEmpty(proxy.FirstBoot) Then
+            'nacítanie hodnoty zo súboru
 
-    Private Sub loadNetworkInfo()
 
-        'nacitanie dostupnych sieti do userControlera
-        For Each sset In loader.GetNetWorkCards()
-            Items.Add(sset)
-        Next
 
-    End Sub
-
-    Private Sub Tb_scriptController()
-        If String.IsNullOrWhiteSpace(Tb_script.Text) Then
-            MsgBox("prosím zapíšte svoju adresu")
         Else
-
-            MsgBox("vasa proxy je uspesne zmenená")
-            file.WriteScript(Tb_script.Text)
+            'zapisanie hodnoty do súboru
+            file.WriteScript(proxy.FirstBoot)
 
         End If
+
+        Tb_script.Text = file.ReadScript()
+
+        StartupInit()
+        loadNetworkInfo()
+
+
     End Sub
 
     Private Sub StartupInit()
-        If loader.IsScriptAllowed Then
+
+
+        If proxy.IsScriptAllowed Then
 
             CheckBox1.IsChecked = True
             Tb_script.IsEnabled = True
@@ -122,8 +139,30 @@ Class MainWindow
 
     End Sub
 
-#End Region
+    'nacitanie dostupnych sieti do userControlera
 
+    Private Sub loadNetworkInfo()
+        For Each sset In loader.GetNetWorkCards()
+            Items.Add(sset)
+        Next
+
+    End Sub
+
+    Private Sub Tb_scriptController()
+        If String.IsNullOrWhiteSpace(Tb_script.Text) Then
+            MsgBox("prosím zapíšte svoju adresu")
+        ElseIf Tb_script.Text = file.ReadScript() Then
+            MsgBox("vaša proxy adresa sa nezmenila")
+        Else
+            MsgBox("vasa proxy je uspesne zmenená")
+            file.WriteScript(Tb_script.Text)
+            proxy.EnableProxyScript()
+        End If
+    End Sub
+
+
+
+#End Region
 
 End Class
 

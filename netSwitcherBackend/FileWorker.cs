@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace netSwitcherBackend
 {
-    public class ProxyWorker
+    public class FileWorker
     {
         string IsrName = Environment.UserName;
 

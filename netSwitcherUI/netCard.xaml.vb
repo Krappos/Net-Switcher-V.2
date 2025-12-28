@@ -16,8 +16,6 @@ Public Class netCard
         InitializeComponent()
     End Sub
 
-
-
     Private Async Sub Btn1_Click(sender As Object, e As RoutedEventArgs) Handles Btn1.Click
         MsgBox("vykonáva sa" + " " + tx1.Text)
 
