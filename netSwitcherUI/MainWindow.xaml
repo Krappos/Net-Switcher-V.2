@@ -3,8 +3,10 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
     xmlns:tray="http://schemas.lepo.co/wpfui/2022/xaml/tray"
+                 
     xmlns:local="clr-namespace:netSwitcherUI"
     mc:Ignorable="d"
     
@@ -16,8 +18,49 @@
     WindowBackdropType="Mica"
     ExtendsContentIntoTitleBar="True" Background="#FF1C1C1C" MinHeight="505">
 
-   
+    
+<!--pridavanie tray ikony do hiden baru-->
+    
+    <ui:FluentWindow.Resources>
+        <tray:NotifyIcon 
+        x:Key="MyTrayIcon"
+        TooltipText="Network Switcher"
+        MenuOnRightClick="True"
+        FocusOnLeftClick="True">
 
+            <tray:NotifyIcon.Icon>
+                <BitmapImage UriSource="pack://application:,,,/Apka.ico" />
+            </tray:NotifyIcon.Icon>
+
+            <tray:NotifyIcon.Menu>
+
+                <ContextMenu>
+                    <ui:MenuItem IsEnabled="False" >
+                        <ui:MenuItem.Header>
+                            <TextBlock>
+            <Run Text="Status siete: " Foreground="White" />
+            <Run Text="Zapnuta" 
+                 Foreground="Green" 
+                 FontWeight="Bold" />
+                            </TextBlock>
+                        </ui:MenuItem.Header>
+                        <ui:MenuItem.Icon>
+                            <ui:SymbolIcon Symbol="Status24"/>
+                        </ui:MenuItem.Icon>
+                    </ui:MenuItem>
+
+                    <!--<ui:MenuItem Header="vypnuta" Foreground="Red"/>-->
+
+                    <ui:MenuItem Header="Vypnuť proxy" />
+                    <Separator/>
+                    <ui:MenuItem Header="Ukončiť" Click="appClose" />
+                </ContextMenu>
+            </tray:NotifyIcon.Menu>
+        </tray:NotifyIcon>
+    </ui:FluentWindow.Resources>
+
+    
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
