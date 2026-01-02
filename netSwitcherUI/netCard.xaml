@@ -49,7 +49,7 @@
                        HorizontalAlignment="Stretch" 
                        VerticalAlignment="Center" Background="{Binding btnColor}"/>
             <ui:Image HorizontalContentAlignment="Center" Source="{Binding iconKey}" Height="35" Width="35" Margin="3,-2,7,-2">
-          
+
 
             </ui:Image>
 

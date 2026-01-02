@@ -1,4 +1,3 @@
-# Visual Studio doèasné súbory (TOTO OPRAVÍ TVOJ PROBLÉM)
 .vs/
 .suo
 *.user
@@ -6,13 +5,11 @@
 *.sln.docstates
 *.sln
 
-# Skompilované binárky (tiež nepatria na GitHub)
 [Bb]in/
 [Oo]bj/
 *.dll
 *.exe
 *.pdb
 
-# Ostatné
 packages/
 TestResults/

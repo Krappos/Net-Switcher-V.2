@@ -31,9 +31,8 @@ namespace netSwitcherBackend;
 
         public void EnableProxyScript()
         {
-
-            var newClass = new FileWorker();
-            var proxy = newClass.ReadScript();
+            var configController = new ConfigControler();
+            var proxy = configController.getScript();
             using var key = Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Internet Settings", writable: true);
             key.SetValue("AutoConfigURL", proxy, RegistryValueKind.String);
             RefreshProxySettings();

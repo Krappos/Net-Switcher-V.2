@@ -16,6 +16,11 @@ Class MainWindow
     Dim file As New FileWorker()
     Dim activeState As Boolean
     Dim proxy As New proxyController()
+    Dim farbaStavu As String
+    Dim stavProxy As String
+
+    Dim config As New ConfigControler()
+    Dim proxka As New ProxyRegister
 
 #End Region
 
@@ -28,18 +33,42 @@ Class MainWindow
 
         Me.DataContext = Me
 
+        Me.farbaStavu = "red"
+        Me.stavProxy = "Proxy is disabled"
+        Me.Height = config.getHeight
+        Me.Width = config.getWidth
+
+        If config.getInitialization = "false" Then
+
+        End If
+
+        proxka.Show()
 
     End Sub
 
 #Region "View methods"
+
+
+
     Private Sub MainWindow_Loaded(sender As Object, e As RoutedEventArgs) Handles Me.Loaded
 
         trayIcon = TryCast(Me.Resources("MyTrayIcon"), Wpf.Ui.Tray.Controls.NotifyIcon)
         trayIcon.Register()
 
+        Me.Top = config.getPosY
+        Me.Left = config.getPosX
+
+
+
     End Sub
 
     Protected Overrides Sub OnClosing(e As CancelEventArgs)
+
+        config.setHeight(Me.ActualHeight)
+        config.setWidth(Me.ActualWidth)
+
+        config.setPosX(Me.Left)
+        config.setPosY(Me.Top)
         e.Cancel = True
 
         Me.Hide()
@@ -47,9 +76,6 @@ Class MainWindow
         Me.ShowInTaskbar = False
 
         MyBase.OnClosing(e)
-
-        'zapisanie pozície okna 
-        'zapisanie pozicie okna
 
 
     End Sub
@@ -75,9 +101,7 @@ Class MainWindow
     End Sub
 
 #End Region
-
-
-    Private Sub refresh()
+    Public Sub refresh()
         Items.Clear()
         loadNetworkInfo()
     End Sub
@@ -90,29 +114,25 @@ Class MainWindow
     End Sub
 
 
-
-
 #Region "private methods"
-
-
 
     Private Sub firstBoot()
 
         'vytvorenie súboru pre proxy Script
-        file.CreateFiles()
+        'overenie vytvorenia súboru pri náhodnom odstranení file.CreateFiles()
 
         If String.IsNullOrEmpty(proxy.FirstBoot) Then
             'nacítanie hodnoty zo súboru
 
 
-
         Else
             'zapisanie hodnoty do súboru
-            file.WriteScript(proxy.FirstBoot)
 
+            config.setScript(proxy.FirstBoot)
         End If
 
-        Tb_script.Text = file.ReadScript()
+        ' Tb_script.Text = file.ReadScript()
+        Tb_script.Text = config.getScript()
 
         StartupInit()
         loadNetworkInfo()
@@ -151,28 +171,17 @@ Class MainWindow
     Private Sub Tb_scriptController()
         If String.IsNullOrWhiteSpace(Tb_script.Text) Then
             MsgBox("prosím zapíšte svoju adresu")
-        ElseIf Tb_script.Text = file.ReadScript() Then
+        ElseIf Tb_script.Text = config.getScript() Then
             MsgBox("vaša proxy adresa sa nezmenila")
         Else
             MsgBox("vasa proxy je uspesne zmenená")
-            file.WriteScript(Tb_script.Text)
+            config.setScript(Tb_script.Text)
             proxy.EnableProxyScript()
         End If
     End Sub
 
 
-
 #End Region
 
 End Class
-
-'nacitavanie sieti do zoznamu funguje <3
-'upravit proxy font a textbox <3
-'pridanie kniznice na zapis scriptu do systemu <3
-'nejaky proces zadržuje vypnutie aplikácie  <3
-'pridanie logiky na aktivnu siet <3
-'pridat logiku checkboxu a textboxu na script <
-'ak je tb_script text rovnaky ako file.readscript vypíše sa že nič sa nezmenilo <3
-
-'pridat bluetooth  icon 
 
