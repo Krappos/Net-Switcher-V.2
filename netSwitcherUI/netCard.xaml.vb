@@ -10,15 +10,11 @@ Public Class netCard
 
     Dim controller As New NewtorkLoader()
 
-
     Public Sub New()
-        ' Tento riadok prepojí VB kód s tvojím XAML dizajnom
         InitializeComponent()
     End Sub
 
     Private Async Sub Btn1_Click(sender As Object, e As RoutedEventArgs) Handles Btn1.Click
-        MsgBox("vykonáva sa" + " " + tx1.Text)
-
         controller.ToggleAdapterStatus(tx1.Text)
         Await Task.Delay(10000)
 

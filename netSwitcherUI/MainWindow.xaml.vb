@@ -1,6 +1,5 @@
 ﻿Imports System.Collections.ObjectModel
 Imports System.ComponentModel
-Imports System.Windows.Interop
 Imports netSwitcherBackend
 
 Class MainWindow
@@ -8,57 +7,61 @@ Class MainWindow
 
 
     Public Property Items As New ObservableCollection(Of NetworkInfo)()
+    Public Property proxyInfo As New ProxyInfo()
+
 #Region "Instances & variables "
 
     Dim trayIcon As Wpf.Ui.Tray.Controls.NotifyIcon
+
     Dim loader As New NewtorkLoader()
     Dim inform As New NetworkInfo()
-    Dim file As New FileWorker()
-    Dim activeState As Boolean
     Dim proxy As New proxyController()
-    Dim farbaStavu As String
-    Dim stavProxy As String
-
     Dim config As New ConfigControler()
-    Dim proxka As New ProxyRegister
+    Dim proxka As New ProxyRegister()
+
+    Dim activeState As Boolean
 
 #End Region
 
     'constructor
     Public Sub New()
 
-        InitializeComponent()
-
-        firstBoot()
-
-        Me.DataContext = Me
-
-        Me.farbaStavu = "red"
-        Me.stavProxy = "Proxy is disabled"
         Me.Height = config.getHeight
         Me.Width = config.getWidth
 
+        InitializeComponent()
+
+
+
+        Me.DataContext = Me
+
+
         If config.getInitialization = "false" Then
+            'ak je zapnuta tak ju len natiahne a ak je vypnuta tak ju zapne natiahne a vypne 
+
+            'zobrazí proxy okno
+            'proxka.ShowDialog()
+
 
         End If
-
-        proxka.Show()
 
     End Sub
 
 #Region "View methods"
 
-
-
     Private Sub MainWindow_Loaded(sender As Object, e As RoutedEventArgs) Handles Me.Loaded
 
+
         trayIcon = TryCast(Me.Resources("MyTrayIcon"), Wpf.Ui.Tray.Controls.NotifyIcon)
+        TrayInfoControler()
+        trayIcon.DataContext = Me.proxyInfo
         trayIcon.Register()
+
+
+        firstBoot()
 
         Me.Top = config.getPosY
         Me.Left = config.getPosX
-
-
 
     End Sub
 
@@ -80,6 +83,8 @@ Class MainWindow
 
     End Sub
 
+
+
     Private Sub CheckBoxController(sender As Object, e As RoutedEventArgs) Handles CheckBox1.Unchecked, CheckBox1.Checked
 
         If CheckBox1.IsChecked = True Then
@@ -91,20 +96,18 @@ Class MainWindow
             Tb_script.TextDecorations = TextDecorations.Strikethrough
             proxy.DisableProxyScript()
         End If
-
+        TrayInfoControler()
     End Sub
 
     Private Sub Tb_script_KeyDown(sender As Object, e As KeyEventArgs) Handles Tb_script.KeyDown
         If e.Key = Key.Enter Then
             Tb_scriptController()
         End If
+
     End Sub
 
 #End Region
-    Public Sub refresh()
-        Items.Clear()
-        loadNetworkInfo()
-    End Sub
+
 
     Private Sub appClose(sender As Object, e As RoutedEventArgs)
         If trayIcon IsNot Nothing Then
@@ -116,6 +119,29 @@ Class MainWindow
 
 #Region "private methods"
 
+    Private Sub TrayInfoControler()
+
+        If proxy.IsScriptAllowed Then
+            proxyInfo.farbaStavu = "green"
+            proxyInfo.spravaStavu = "Zapnutá"
+        Else
+
+            proxyInfo.farbaStavu = "red"
+            proxyInfo.spravaStavu = "Vypnutá"
+        End If
+
+
+        refreshnes()
+    End Sub
+
+    Public Sub refreshnes()
+        trayIcon.DataContext = Nothing
+        trayIcon.DataContext = Me.proxyInfo
+    End Sub
+    Public Sub refresh()
+        Items.Clear()
+        loadNetworkInfo()
+    End Sub
     Private Sub firstBoot()
 
         'vytvorenie súboru pre proxy Script
@@ -179,7 +205,6 @@ Class MainWindow
             proxy.EnableProxyScript()
         End If
     End Sub
-
 
 #End Region
 

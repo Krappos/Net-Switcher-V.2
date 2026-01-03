@@ -9,9 +9,17 @@ namespace netSwitcherBackend;
   public class ProxyInfo
     {
 
-    public String farbaStavu { get; set; }
-    public bool stavProxy { get; set; }
+    public  String farbaStavu { get; set; }
+    public String spravaStavu { get; set; }
+
+    }
 
 
-}
+
+
+
+
+
+
+
 

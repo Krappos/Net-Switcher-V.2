@@ -6,6 +6,7 @@
     <RootNamespace>netSwitcherUI</RootNamespace>
     <UseWPF>true</UseWPF>
     <ImportedNamespaces>System.Windows=False,System.Windows.Controls=False,System.Windows.Data=False,System.Windows.Documents=False,System.Windows.Input=False,System.Windows.Media=False,System.Windows.Media.Imaging=False,System.Windows.Navigation=False,System.Windows.Shapes=False,Wpf.Ui=False,Wpf.Ui.Abstractions=False,Wpf.Ui.Abstractions.Controls=False,Wpf.Ui.Animations=False,Wpf.Ui.Appearance=False,Wpf.Ui.Controls=False,Wpf.Ui.Converters=False,Wpf.Ui.Designer=False,Wpf.Ui.Extensions=False,Wpf.Ui.Hardware=False,Wpf.Ui.Markup=False,Wpf.Ui.TaskBar=False,Wpf.Ui.Tray=False,Wpf.Ui.Tray.Controls=False,Microsoft.VisualBasic=True,System=True,System.Collections=True,System.Collections.Generic=True,System.Diagnostics=True,System.Linq=True,System.Xml.Linq=True,System.Threading.Tasks=True,netSwitcherUI=True</ImportedNamespaces>
+    <ApplicationIcon>Apka.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
@@ -53,6 +54,12 @@
     <Resource Include="Apka.ico" />
     <Resource Include="ETH.png" />
     <Resource Include="WIFI.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ApplicationDefinition Update="Application.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </ApplicationDefinition>
   </ItemGroup>
 
 </Project>

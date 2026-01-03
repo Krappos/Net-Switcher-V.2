@@ -40,8 +40,8 @@
                         <ui:MenuItem.Header>
                             <TextBlock>
             <Run Text="Status siete: " Foreground="White" />
-            <Run Text="{Binding stavProxy}"
-                 Foreground="{Binding farbaStavu}" 
+            <Run Text="{Binding spravaStavu, FallbackValue='Nenačítané'}" 
+         Foreground="{Binding farbaStavu, FallbackValue='White'}"
                  FontWeight="Bold" />
                             </TextBlock>
                         </ui:MenuItem.Header>
