@@ -6,7 +6,6 @@ Public Class ProxyRegister
 
     Dim proxy As New proxyController()
     Dim config As New ConfigControler()
-    Dim dialogWin As New DialogWindow()
     Public Sub New()
         InitializeComponent()
 

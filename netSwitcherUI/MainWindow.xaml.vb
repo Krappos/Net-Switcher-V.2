@@ -19,6 +19,7 @@ Class MainWindow
     Dim config As New ConfigControler()
     Dim proxka As New ProxyRegister()
 
+
     Dim activeState As Boolean
 
 #End Region
@@ -30,8 +31,6 @@ Class MainWindow
         Me.Width = config.getWidth
 
         InitializeComponent()
-
-
 
         Me.DataContext = Me
 
@@ -196,14 +195,20 @@ Class MainWindow
 
     Private Sub Tb_scriptController()
         If String.IsNullOrWhiteSpace(Tb_script.Text) Then
-            MsgBox("prosím zapíšte svoju adresu")
+            dialogController("Prosím zapíšte svoju proxy")
         ElseIf Tb_script.Text = config.getScript() Then
-            MsgBox("vaša proxy adresa sa nezmenila")
+            dialogController("proxy je nezmenená")
         Else
-            MsgBox("vasa proxy je uspesne zmenená")
+            dialogController("Vaša proxy sa úspešne zmenila")
             config.setScript(Tb_script.Text)
             proxy.EnableProxyScript()
         End If
+    End Sub
+
+    Private Sub dialogController(sprava As String)
+        Dim dialog As New DialogWindow(sprava)
+        dialog.ShowDialog()
+
     End Sub
 
 #End Region
