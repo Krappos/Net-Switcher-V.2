@@ -49,8 +49,8 @@ Class MainWindow
 #Region "View methods"
 
     Private Sub MainWindow_Loaded(sender As Object, e As RoutedEventArgs) Handles Me.Loaded
+        AddHandler _refresher.StatusChanged, AddressOf OnStatusChanged
         _refresher.StartMonitoring(Me)
-
         trayIcon = TryCast(Me.Resources("MyTrayIcon"), Wpf.Ui.Tray.Controls.NotifyIcon)
         TrayInfoControler()
         trayIcon.DataContext = Me.proxyInfo
@@ -61,11 +61,12 @@ Class MainWindow
 
         Me.Top = config.getPosY
         Me.Left = config.getPosX
-        AddHandler _refresher.StatusChanged, AddressOf OnStatusChanged
+
+
     End Sub
 
     Private Sub OnStatusChanged()
-        'System.Diagnostics.Debug.WriteLine("Zmena detegovaná: " & DateTime.Now.ToString())
+        refresh()
 
     End Sub
 
@@ -81,7 +82,7 @@ Class MainWindow
         Me.Hide()
 
         Me.ShowInTaskbar = False
-
+        _refresher.StopMonitoring()
         MyBase.OnClosing(e)
 
 
