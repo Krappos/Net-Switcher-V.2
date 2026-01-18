@@ -18,7 +18,7 @@ Class MainWindow
     Dim proxy As New proxyController()
     Dim config As New ConfigControler()
     Dim proxka As New ProxyRegister()
-
+    Dim _refresher As New Refresher()
 
     Dim activeState As Boolean
 
@@ -49,7 +49,7 @@ Class MainWindow
 #Region "View methods"
 
     Private Sub MainWindow_Loaded(sender As Object, e As RoutedEventArgs) Handles Me.Loaded
-
+        _refresher.StartMonitoring(Me)
 
         trayIcon = TryCast(Me.Resources("MyTrayIcon"), Wpf.Ui.Tray.Controls.NotifyIcon)
         TrayInfoControler()
@@ -61,6 +61,11 @@ Class MainWindow
 
         Me.Top = config.getPosY
         Me.Left = config.getPosX
+        AddHandler _refresher.StatusChanged, AddressOf OnStatusChanged
+    End Sub
+
+    Private Sub OnStatusChanged()
+        'System.Diagnostics.Debug.WriteLine("Zmena detegovaná: " & DateTime.Now.ToString())
 
     End Sub
 

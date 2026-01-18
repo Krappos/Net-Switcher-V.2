@@ -11,6 +11,7 @@
 
   <ItemGroup>
     <None Remove="Apka.ico" />
+    <None Remove="BTH.png" />
     <None Remove="ETH.png" />
     <None Remove="WIFI.png" />
   </ItemGroup>
@@ -52,6 +53,7 @@
 
   <ItemGroup>
     <Resource Include="Apka.ico" />
+    <Resource Include="BTH.png" />
     <Resource Include="ETH.png" />
     <Resource Include="WIFI.png" />
   </ItemGroup>
