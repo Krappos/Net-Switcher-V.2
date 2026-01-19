@@ -11,41 +11,58 @@ namespace netSwitcherBackend;
 
 public class NewtorkLoader
 {
-    //method for loading all avaliable network cards
     public List<NetworkInfo> GetNetWorkCards()
     {
         var list = new List<NetworkInfo>();
 
+        var modernInterfaces = NetworkInterface.GetAllNetworkInterfaces();
+
         var searcher = new ManagementObjectSearcher(
-                  "SELECT NetConnectionID, NetEnabled FROM Win32_NetworkAdapter WHERE NetConnectionID IS NOT NULL"
-                   );
-
-
+            "SELECT NetConnectionID, NetEnabled, AdapterTypeId, Name FROM Win32_NetworkAdapter WHERE NetConnectionID IS NOT NULL"
+        );
 
         foreach (ManagementObject obj in searcher.Get())
         {
             string name = obj["NetConnectionID"]?.ToString() ?? "unknown";
-            bool? enabled = obj["NetEnabled"] as bool?;
-            string message = "Aktivne";
-            String btnColor = "";
+            bool isEnabled = (bool)(obj["NetEnabled"] ?? false);
 
+            var modernMatch = modernInterfaces.FirstOrDefault(i => i.Name == name);
 
-            if (enabled == false)
+            bool isEth = true;
+            bool isBT = false;
+
+            if (modernMatch != null)
             {
-                message ="pripojiť";
-                btnColor = "#FF2369B6";
+                // 131 je interný kód Windowsu pre Bluetooth PAN (Personal Area Network)
+                bool isBluetoothType = (int)modernMatch.NetworkInterfaceType == 131;
+
+                // Niekedy sa Bluetooth hlási ako Ppp, ak ide o tethering
+                bool isPppBluetooth = modernMatch.NetworkInterfaceType == NetworkInterfaceType.Ppp &&
+                                      name.ToLower().Contains("bluetooth");
+
+                if (isBluetoothType || isPppBluetooth || name.ToLower().Contains("bluetooth"))
+                {
+                    isBT = true;
+                    isEth = false;
+                }
+                else if (modernMatch.NetworkInterfaceType == NetworkInterfaceType.Wireless80211)
+                {
+                    isEth = false;
+                    isBT = false;
+                }
             }
 
             list.Add(new NetworkInfo
             {
                 Name = name,
-                message = message,
-                btnColor = btnColor,
+                isActive = isEnabled,
+                isEthernet = isEth,
+                isBluetooth = isBT,
+                message = isEnabled ? "Aktivne" : "pripojiť",
+                btnColor = isEnabled ? "" : "#FF2369B6"
             });
-
         }
         return list;
-
     }
 
     public void ToggleAdapterStatus(string adapterName)
@@ -74,7 +91,7 @@ public class NewtorkLoader
             }
             catch (Exception ex)
             {
-                // Log pre debugging
+              
                 System.Diagnostics.Debug.WriteLine($"Error on '{name}': {ex.Message}");
             }
         }
