@@ -13,7 +13,7 @@
     Title="Net Switcher" 
     Height="550" 
     Width="450"
-   Icon="C:\Programovanie\Net switcher 2\Images\Apka.ico"
+  Icon="pack://application:,,,/Apka.ico"
     WindowStartupLocation="CenterScreen"
     WindowBackdropType="Mica"
     ExtendsContentIntoTitleBar="True" Background="#FF1C1C1C" MinHeight="505">

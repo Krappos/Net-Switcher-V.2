@@ -19,8 +19,8 @@ namespace netSwitcherBackend;
     {
         get
         {
-            if (isBluetooth) return "/BTH.png"; 
-            return isEthernet ? "/ETH.png" : "/WIFI.png";
+            if (isBluetooth) return "pack://application:,,,/BTH.png";
+            return isEthernet ? "pack://application:,,,/ETH.png" : "pack://application:,,,/WIFI.png";
         }
     }
 
